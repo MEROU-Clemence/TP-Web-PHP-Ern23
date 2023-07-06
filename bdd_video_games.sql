@@ -197,3 +197,11 @@ INSERT INTO `restriction_age` (`id`, `label`, `image_path`) VALUES
 -- requete rendu des jeux sur page accueil
 SELECT `id`, `titre`, `prix`, `image_path`
 FROM jeu;
+
+--requête rendu du détail d'un jeu
+SELECT jeu.`id`, jeu.`titre`, jeu.`description`, jeu.`date_sortie`,ra.`image_path`, ra.`label` AS limitage, note.`note_media`, note.`note_utilisateur`
+FROM jeu
+INNER JOIN restriction_age AS ra
+ON jeu.id = ra.id
+INNER JOIN note 
+ON jeu.id = note.id;

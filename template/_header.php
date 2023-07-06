@@ -16,5 +16,5 @@
 <body>
     <div id="container">
         <h1>
-            <img src="./images/logo.png" alt="logo-site" width="50%">
+            <img src="./images/logo.png" alt="logo-site" width="40%">
         </h1>

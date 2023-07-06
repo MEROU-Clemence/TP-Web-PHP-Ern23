@@ -17,3 +17,5 @@ function get_all_games()
         render_games($jeu);
     }
 }
+
+// TODO: fonction rendu du jeu. Prendre dans méthodo et BDD, faire vardump pour afficher et faire rendu HTML du truc dans un nouveau template
