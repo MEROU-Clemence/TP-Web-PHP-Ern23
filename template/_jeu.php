@@ -1,3 +1,4 @@
+<!-- rendu HTML des jeux sur page accueil -->
 <?php
 function render_games($jeu)
 { ?>
@@ -14,8 +15,8 @@ function render_games($jeu)
                                         echo number_format($prix, 2, ',', '.') . "€";
                                     } ?></p>
             </div>
-            <!-- TODO: pour les détails rajouter un href dans le bouton VOIR détails un <a> peut etre ? -->
-            <button href="#" class="button-detail">Voir détail</button>
+            <!-- lien vers les détails d'un jeu. -->
+            <a href="../detail.php?rendu_jeu=<?php echo $jeu['id'] ?>" class="button-detail">Voir détail</a>
         </div>
     </div>
 

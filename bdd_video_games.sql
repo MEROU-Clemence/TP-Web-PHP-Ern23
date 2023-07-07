@@ -199,8 +199,10 @@ SELECT `id`, `titre`, `prix`, `image_path`
 FROM jeu;
 
 --requête rendu du détail d'un jeu
-SELECT jeu.`id`, jeu.`titre`, jeu.`description`, jeu.`date_sortie`,ra.`image_path`, ra.`label` AS limitage, note.`note_media`, note.`note_utilisateur`
+SELECT jeu.`id`, jeu.`titre`, console.`label`, jeu.`image_path` AS couverture, jeu.`description`, jeu.`date_sortie`,ra.`image_path`, ra.`label` AS limitage, note.`note_media`, note.`note_utilisateur`
 FROM jeu
+INNER JOIN console
+ON jeu.id = console.id
 INNER JOIN restriction_age AS ra
 ON jeu.id = ra.id
 INNER JOIN note 
