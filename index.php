@@ -7,7 +7,7 @@
 <?php require_once './template/_jeu.php' ?>
 
 <!-- renvoi de la fonction de tous les jeux sur page d'accueil -->
-<div class="d-flex flex-wrap justify-content-center main-games">
+<div class="d-flex flex-wrap justify-content-center align-self-center main-games">
     <?php get_all_games() ?>
 </div>
 

@@ -199,11 +199,58 @@ SELECT `id`, `titre`, `prix`, `image_path`
 FROM jeu;
 
 --requête rendu du détail d'un jeu
-SELECT jeu.`id`, jeu.`titre`, console.`label`, jeu.`image_path` AS couverture, jeu.`description`, jeu.`date_sortie`,ra.`image_path`, ra.`label` AS limitage, note.`note_media`, note.`note_utilisateur`
+SELECT jeu.`id`,
+		jeu.`titre`,
+		jeu.`image_path` AS couverture,
+		jeu.`description`,
+		jeu.`date_sortie`,
+		ra.`image_path`,
+		ra.`label` AS limitage,
+		note.`note_media`,
+		note.`note_utilisateur`
 FROM jeu
-INNER JOIN console
-ON jeu.id = console.id
 INNER JOIN restriction_age AS ra
-ON jeu.id = ra.id
+ON jeu.age_id = ra.id
 INNER JOIN note 
-ON jeu.id = note.id;
+ON jeu.note_id = note.id
+WHERE jeu.id = 3;
+
+-- requête pour ajouter le label du jeu
+SELECT console.`id`, console.`label`
+FROM game_console
+INNER JOIN jeu
+ON jeu.id = game_console.jeu_id
+INNER JOIN console
+ON game_console.console_id = console.id
+WHERE jeu.id = 2;
+
+-- exemple requête en une requête pour joindre le label avec le reste du détail
+SELECT jeu.`id`,
+		jeu.`titre`,
+		jeu.`image_path` AS couverture,
+		jeu.`description`,
+		jeu.`date_sortie`,
+		ra.`image_path`,
+		ra.`label` AS limitage,
+		note.`note_media`,
+		note.`note_utilisateur`,
+		GROUP_CONCAT(console.`label`)
+FROM jeu
+INNER JOIN restriction_age AS ra
+ON jeu.age_id = ra.id
+INNER JOIN note 
+ON jeu.note_id = note.id
+INNER JOIN game_console
+ON jeu.id = game_console.jeu_id
+INNER JOIN console
+ON game_console.console_id = console.id
+INNER JOIN restriction_age
+ON jeu.age_id = restriction_age.id
+WHERE jeu.id = 3;
+
+-- requête pour le tri par console pour le sous-menu déroulant
+SELECT console.`id`, console.`label`, COUNT(console.`label`) AS NBlabel
+FROM game_console
+INNER JOIN console
+ON game_console.console_id = console.id
+GROUP BY console.`id`;

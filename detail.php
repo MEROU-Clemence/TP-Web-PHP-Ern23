@@ -7,10 +7,11 @@
 <?php require_once './template/_detail.php' ?>
 
 <!-- renvoi fonction du détail d'un jeu -->
-<div class="d-flex flex-wrap justify-content-center main-games">
+<div class="d-flex flex-wrap justify-content-center align-self-center main-games">
 
     <?php $jeu_id = intval($_GET['rendu_jeu']);
-    detail_games($jeu_id) ?>
+    detail_games($jeu_id);
+    ?>
 </div>
 
 <?php require_once './template/_footer.php' ?>

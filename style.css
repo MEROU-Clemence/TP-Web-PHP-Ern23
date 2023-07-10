@@ -42,42 +42,75 @@ h1 {
 /* NAV */
 
 .nav-style {
-    background-color: #fffffff0;
+    background-color: #fffff0;
     display: flex;
     width: 45%;
     padding-bottom: 0;
 }
 
-.button-nav {
+.button-games {
     background-color: #0f5ef0;
     border-radius: 6px 6px 0 0;
-    border: solid 1px #fffffff0;
+    border: solid 1px #fffff0;
     padding: 0 8px 0 8px;
 }
 
-.button-nav:hover {
-    background-color: #fffffff0;
+.button-games:hover {
+    background-color: #fffff0;
     border: solid 1px #0f5ef0;
-}
-
-.color-whrite {
-    color: #fffffff0;
-    font-size: 14px;
-}
-
-.color-whrite:hover {
     color: #0f5ef0;
 }
 
-.line-solo {
-    border: solid 1px grey;
-    margin-top: 0;
-    width: 45%;
+.button-console {
+    background-color: #0f5ef0;
+    border-radius: 6px 6px 0 0;
+    border: solid 1px #fffff0;
+    color: #fffff0 !important;
+    padding: 0 8px 0 8px;
+}
+
+.button-console:hover {
+    color: #fffff0;
+}
+
+.color-whrite1 {
+    color: #fffff0;
+    font-size: 14px;
+}
+
+.color-whrite1:hover {
+    color: #0f5ef0;
+}
+
+.color-whrite2 {
+    color: #fffff0;
+    font-size: 14px;
+}
+
+.color-whrite2:hover {
+    color: #fffff0;
+}
+
+.custom-li a {
+    font-size: 14px;
+}
+
+.custom-li:hover a {
+    color: #0f5ef0 !important;
+    font-size: 14px;
+}
+
+.custom-li:hover {
+    background-color: #fffff0 !important;
+}
+
+.custom-ul li:last-child {
+    border-radius: 0 0 5px 5px;
 }
 
 /* MENU PRINCIPAL */
 .main-games {
-    padding: 0 300px 0 300px;
+    width: 60%;
 }
 
 .render-card {
@@ -101,7 +134,7 @@ h1 {
 .button-detail {
     background-color: #0f5ef0;
     border-radius: 5px;
-    color: #fffffff0;
+    color: #fffff0;
     font-size: 16px;
     margin: 0 10px 10px 10px;
     padding: 5px 0 5px 0;
@@ -110,25 +143,20 @@ h1 {
 }
 
 .button-detail:hover {
-    background-color: #fffffff0;
+    background-color: #fffff0;
     border: solid 1px #0f5ef0;
     border-radius: 5px;
     color: #0f5ef0;
 }
 
 /* DETAIL D'UN JEU */
-.complet_detail_container {
-    display: flex;
+.jeu_image_detail {
     object-fit: contain;
-}
-
-.jeu_image_path {
-    display: flex;
-    object-fit: contain;
+    width: 100%;
 }
 
 #detail-container {
-    margin: 15px;
+    padding: 15px;
 }
 
 .detail_titre {
@@ -139,11 +167,11 @@ h1 {
 .sort_console {
     background-color: #0f5ef0;
     border-radius: 10px;
-    color: #fffffff0;
+    color: #fffff0;
+    display: inline;
     font-size: 12px;
     font-weight: bold;
-    margin-right: 280px;
-    text-align: center;
+    padding: 2px 5px 2px 5px;
 }
 
 .descrip_detail {
@@ -154,6 +182,7 @@ h1 {
 .date_sortie {
     color: #5f5e5e;
     font-size: 12px;
+    margin-top: 2px;
 }
 
 .chiffres_date {
@@ -163,6 +192,21 @@ h1 {
 }
 
 .age_limit {
+    font-size: 14px;
     margin: 10px 0 0 0;
     text-align: center;
+}
+
+.avis_precis {
+    font-size: 14px;
+    padding: 0 25px 0 25px;
+}
+
+.hauteur_justify {
+    margin-top: 3px;
+}
+
+.color_note {
+    color: #0f5ef0;
+    font-weight: bold;
 }
