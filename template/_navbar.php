@@ -26,8 +26,7 @@
         <li class="nav-item dropdown button-console">
             <a class="nav-link dropdown-toggle color-whrite2" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Filtrer ages</a>
             <ul class="dropdown-menu p-0 custom-ul">
-                <?php var_dump('coucou') ?>
-                <?php // games_by_age($age_limit) 
+                <?php get_games_by_age()
                 ?>
             </ul>
         </li>

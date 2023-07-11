@@ -133,7 +133,6 @@ function get_all_games_by_label($console_id)
     $query = "SELECT jeu.`id`, jeu.`titre`, jeu.`prix`, jeu.`image_path`
               FROM jeu
               INNER JOIN game_console ON jeu.id = game_console.jeu_id
-              
               WHERE game_console.console_id = $console_id";
 
     // 3- exécuter la requête SQL
@@ -292,30 +291,23 @@ function games_by_utilisateurs()
 }
 
 // ******
-// fonction affichage jeux selon tranche d'âge
+// fonction affichage jeux dans navbar
 // ******
-function games_by_age($age_limit)
+function get_games_by_age()
 {
 
     // 1- penser à récupérer la connexion à la base de données avec le mot clé global
     global $connection; // $connection vient du fichier config.php
 
     // 2- écrire la requête SQL dans une variable
-    $query = "SELECT jeu.`id`,
-                    jeu.`titre`,
-                    jeu.`image_path` AS couverture,
-                    res.`image_path`,
-                    res.`label` AS limitage,
-                    GROUP_CONCAT(console.`label`)
-            FROM jeu
-            INNER JOIN restriction_age AS res
-            ON jeu.age_id = res.id
-            INNER JOIN game_console
-            ON jeu.id = game_console.jeu_id
-            INNER JOIN console
-            ON game_console.console_id = console.id
-            WHERE res.`label` <= $age_limit
-            GROUP BY jeu.id"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+    $query = "SELECT res.`id`, 
+    res.`image_path`,
+    res.`label`,			
+    COUNT(jeu.id)
+    FROM jeu
+    INNER JOIN restriction_age AS res
+    ON jeu.age_id = res.id
+    GROUP BY res.id"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
 
     // on exécute la requête
     if ($result = mysqli_query($connection, $query)) {
@@ -324,11 +316,40 @@ function games_by_age($age_limit)
             // on parcours les résultats
             while ($jeu = mysqli_fetch_assoc($result)) { ?>
                 <li class="bg-primary py-1 ps-3 custom-li">
-                    <a class="nav-item text-light fw-bold menu-deroul" href="./age.php?jeu_id=<?php echo $jeu['id'] ?>">
-                        <?php echo $jeu["res.'label'"] ?>
+                    <a class="nav-item text-light fw-bold menu-deroul" href="./age.php?rendu_jeu_age=<?php echo $jeu['id'] ?>">
+                        <img src="../images/pegi/<?php echo $jeu['image_path'] ?>" alt="image-pegi" width="20px">
+                        <?php echo $jeu['label'] ?> +
                     </a>
                 </li>
 <?php
+            }
+        }
+    }
+}
+
+// ******
+// fonction affichage jeux selon tranche d'âge
+// ******
+function game_by_age($age_id)
+{
+    // 1- penser à récupérer la connexion à la base de données avec le mot clé global
+    global $connection; // $connection vient du fichier config.php
+
+    // 2- écrire la requête SQL dans une variable
+    $query = "SELECT `id`,
+	                `titre`,
+	                `prix`,
+	                `image_path`
+            FROM jeu
+            WHERE age_id = $age_id"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+
+    // on exécute la requête
+    if ($result = mysqli_query($connection, $query)) {
+        // on vérifie si on a des résultats
+        if (mysqli_num_rows($result) > 0) {
+            // on parcours les résultats
+            while ($jeu = mysqli_fetch_assoc($result)) {
+                render_jeu_by_age($jeu);
             }
         }
     }

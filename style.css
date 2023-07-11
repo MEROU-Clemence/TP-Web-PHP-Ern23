@@ -162,11 +162,23 @@ h1 {
     width: 50%;
 }
 
-.button-detail:hover {
+.button-detail:hover,
+.button-detail-bis:hover {
     background-color: #fffff0;
     border: solid 1px #0f5ef0;
     border-radius: 5px;
     color: #0f5ef0;
+}
+
+.button-detail-bis {
+    background-color: #0f5ef0;
+    border-radius: 5px;
+    color: #fffff0;
+    font-size: 16px;
+    margin: 0 10px 10px 10px;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    width: 150px;
 }
 
 /* DETAIL D'UN JEU */

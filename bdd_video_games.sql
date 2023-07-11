@@ -254,19 +254,20 @@ ON game_console.console_id = console.id
 GROUP BY console.`id`;
 
 -- requête avec limite d'âge par rapport aux jeux
-SELECT jeu.`id`,
-		jeu.`titre`,
-		jeu.`image_path` AS couverture,
-		res.`image_path`,
-		res.`label` AS limitage,
-		GROUP_CONCAT(console.`label`)
+SELECT `id`,
+	`titre`,
+	`prix`,
+	`image_path` AS couverture
+FROM jeu
+WHERE age_id = 1;
+
+-- requete affichage menu deroulant ages
+SELECT 	res.`id`, 
+res.`image_path`,
+res.`label`,			
+COUNT(jeu.id)
 FROM jeu
 INNER JOIN restriction_age AS res
 ON jeu.age_id = res.id
-INNER JOIN game_console
-ON jeu.id = game_console.jeu_id
-INNER JOIN console
-ON game_console.console_id = console.id
-WHERE res.`label` <= 3
-GROUP BY jeu.id;
+GROUP BY res.id;
 
