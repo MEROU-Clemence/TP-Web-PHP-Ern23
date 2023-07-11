@@ -244,8 +244,6 @@ INNER JOIN game_console
 ON jeu.id = game_console.jeu_id
 INNER JOIN console
 ON game_console.console_id = console.id
-INNER JOIN restriction_age
-ON jeu.age_id = restriction_age.id
 WHERE jeu.id = 3;
 
 -- requête pour le tri par console pour le sous-menu déroulant
@@ -254,3 +252,21 @@ FROM game_console
 INNER JOIN console
 ON game_console.console_id = console.id
 GROUP BY console.`id`;
+
+-- requête avec limite d'âge par rapport aux jeux
+SELECT jeu.`id`,
+		jeu.`titre`,
+		jeu.`image_path` AS couverture,
+		res.`image_path`,
+		res.`label` AS limitage,
+		GROUP_CONCAT(console.`label`)
+FROM jeu
+INNER JOIN restriction_age AS res
+ON jeu.age_id = res.id
+INNER JOIN game_console
+ON jeu.id = game_console.jeu_id
+INNER JOIN console
+ON game_console.console_id = console.id
+WHERE res.`label` <= 3
+GROUP BY jeu.id;
+

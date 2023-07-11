@@ -29,7 +29,7 @@ function detail_games($jeu_id)
 {
 
     // 1- penser à récupérer la connexion à la base de données avec le mot clé global
-    global $connection; // $connection vient du gichier config.php
+    global $connection; // $connection vient du fichier config.php
 
     // 2- écrire la requête SQL dans une variable
     $query = "SELECT jeu.`id`,
@@ -46,7 +46,7 @@ function detail_games($jeu_id)
     ON jeu.age_id = ra.id
     INNER JOIN note 
     ON jeu.note_id = note.id
-    WHERE jeu.id = $jeu_id;"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+    WHERE jeu.id = $jeu_id"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
 
     // 3- comme on a pas de paramètres, on peut directement exécuter la requête avec mysqli_query().
     $result = mysqli_query($connection, $query); // 1er paramètre: la connexion, 2ème paramètre: la requête.
@@ -133,6 +133,7 @@ function get_all_games_by_label($console_id)
     $query = "SELECT jeu.`id`, jeu.`titre`, jeu.`prix`, jeu.`image_path`
               FROM jeu
               INNER JOIN game_console ON jeu.id = game_console.jeu_id
+              
               WHERE game_console.console_id = $console_id";
 
     // 3- exécuter la requête SQL
@@ -177,8 +178,158 @@ function get_games_by_label()
                         <?php echo $console['label'] ?> (&nbsp;<?php echo $console['NBlabel'] ?>&nbsp;)
                     </a>
                 </li>
-<?php
+            <?php
             }
         }
     }
 };
+
+
+// ------- BONUS -------
+
+// ******
+// fonction affichage tous les jeux ordre prix croissant
+// ******
+function get_games_croissant()
+{
+
+    // 1- penser à récupérer la connexion à la base de données avec le mot clé global
+    global $connection; // $connection vient du gichier config.php
+
+    // 2- écrire la requête SQL dans une variable
+    $query = "SELECT `id`, `titre`, `prix`, `image_path` FROM jeu ORDER BY `prix` ASC"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+
+    // 3- comme on a pas de paramètres, on peut directement exécuter la requête avec mysqli_query().
+    $result = mysqli_query($connection, $query); // 1er paramètre: la connexion, 2ème paramètre: la requête.
+
+    // 4- on passe le résultat dans un tableau associatif avec mysqli_fetch_assoc()
+    while ($jeu = mysqli_fetch_assoc($result)) {
+        // 5- maintenant dans la boucle, c'est ici qu'il faut faire le rendu HTML
+        render_games($jeu);
+    }
+}
+
+// ******
+// fonction affichage tous les jeux ordre prix decroissant
+// ******
+function get_games_decroissant()
+{
+
+    // 1- penser à récupérer la connexion à la base de données avec le mot clé global
+    global $connection; // $connection vient du gichier config.php
+
+    // 2- écrire la requête SQL dans une variable
+    $query = "SELECT `id`, `titre`, `prix`, `image_path` FROM jeu ORDER BY `prix` DESC"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+
+    // 3- comme on a pas de paramètres, on peut directement exécuter la requête avec mysqli_query().
+    $result = mysqli_query($connection, $query); // 1er paramètre: la connexion, 2ème paramètre: la requête.
+
+    // 4- on passe le résultat dans un tableau associatif avec mysqli_fetch_assoc()
+    while ($jeu = mysqli_fetch_assoc($result)) {
+        // 5- maintenant dans la boucle, c'est ici qu'il faut faire le rendu HTML
+        render_games($jeu);
+    }
+}
+
+// ******
+// fonction affichage des jeux pour les notes de la presse
+// ******
+function games_by_presse()
+{
+
+    // 1- penser à récupérer la connexion à la base de données avec le mot clé global
+    global $connection; // $connection vient du fichier config.php
+
+    // 2- écrire la requête SQL dans une variable
+    $query = "SELECT jeu.`id`,
+    jeu.`titre`,
+    jeu.`image_path` AS couverture,
+    note.`note_media`,
+    note.`note_utilisateur`
+    FROM jeu
+    INNER JOIN note 
+    ON jeu.note_id = note.id
+    ORDER BY note.`note_media` DESC"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+
+    // 3- comme on a pas de paramètres, on peut directement exécuter la requête avec mysqli_query().
+    $result = mysqli_query($connection, $query); // 1er paramètre: la connexion, 2ème paramètre: la requête.
+
+    // 4- on passe le résultat dans un tableau associatif avec mysqli_fetch_assoc()
+    while ($jeu = mysqli_fetch_assoc($result)) {
+        // 5- maintenant dans la boucle, c'est ici qu'il faut faire le rendu HTML
+        render_avis_presse($jeu);
+    }
+}
+
+// ******
+// fonction affichage des jeux pour les notes des utilisateurs
+// ******
+function games_by_utilisateurs()
+{
+
+    // 1- penser à récupérer la connexion à la base de données avec le mot clé global
+    global $connection; // $connection vient du fichier config.php
+
+    // 2- écrire la requête SQL dans une variable
+    $query = "SELECT jeu.`id`,
+    jeu.`titre`,
+    jeu.`image_path` AS couverture,
+    note.`note_utilisateur`,
+    note.`note_media`
+    FROM jeu
+    INNER JOIN note 
+    ON jeu.note_id = note.id
+    ORDER BY note.`note_utilisateur` DESC"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+
+    // 3- comme on a pas de paramètres, on peut directement exécuter la requête avec mysqli_query().
+    $result = mysqli_query($connection, $query); // 1er paramètre: la connexion, 2ème paramètre: la requête.
+
+    // 4- on passe le résultat dans un tableau associatif avec mysqli_fetch_assoc()
+    while ($jeu = mysqli_fetch_assoc($result)) {
+        // 5- maintenant dans la boucle, c'est ici qu'il faut faire le rendu HTML
+        render_avis_utilisateurs($jeu);
+    }
+}
+
+// ******
+// fonction affichage jeux selon tranche d'âge
+// ******
+function games_by_age($age_limit)
+{
+
+    // 1- penser à récupérer la connexion à la base de données avec le mot clé global
+    global $connection; // $connection vient du fichier config.php
+
+    // 2- écrire la requête SQL dans une variable
+    $query = "SELECT jeu.`id`,
+                    jeu.`titre`,
+                    jeu.`image_path` AS couverture,
+                    res.`image_path`,
+                    res.`label` AS limitage,
+                    GROUP_CONCAT(console.`label`)
+            FROM jeu
+            INNER JOIN restriction_age AS res
+            ON jeu.age_id = res.id
+            INNER JOIN game_console
+            ON jeu.id = game_console.jeu_id
+            INNER JOIN console
+            ON game_console.console_id = console.id
+            WHERE res.`label` <= $age_limit
+            GROUP BY jeu.id"; // Le fait de la mettre dans une variable est plus pratique à utiliser plus tard
+
+    // on exécute la requête
+    if ($result = mysqli_query($connection, $query)) {
+        // on vérifie si on a des résultats
+        if (mysqli_num_rows($result) > 0) {
+            // on parcours les résultats
+            while ($jeu = mysqli_fetch_assoc($result)) { ?>
+                <li class="bg-primary py-1 ps-3 custom-li">
+                    <a class="nav-item text-light fw-bold menu-deroul" href="./age.php?jeu_id=<?php echo $jeu['id'] ?>">
+                        <?php echo $jeu["res.'label'"] ?>
+                    </a>
+                </li>
+<?php
+            }
+        }
+    }
+}

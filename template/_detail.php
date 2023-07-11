@@ -33,7 +33,7 @@ function render_detail($detail)
                     </div>
                 </div>
                 <div class="d-flex flex-row avis_precis">
-                    ⭐<div class="d-flex flex-row hauteur_justify">Avis utilisateur: &nbsp;
+                    ⭐<div class="d-flex flex-row hauteur_justify">Avis utilisateurs: &nbsp;
                         <div class="color_note"><?php echo $detail['note_utilisateur'] ?></div>/20
                     </div>
                 </div>
