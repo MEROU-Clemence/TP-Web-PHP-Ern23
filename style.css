@@ -242,3 +242,9 @@ h1 {
     color: #0f5ef0;
     font-weight: bold;
 }
+
+/* Options */
+
+.grossir:hover {
+    transform: scale(1.1);
+}

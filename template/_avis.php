@@ -3,9 +3,9 @@
 function render_avis_presse($jeu)
 {
 ?>
-    <div class="d-flex flex-row flex-wrap card m-2">
+    <div class="d-flex flex-row flex-wrap card m-2 grossir">
         <div class="col-lg-4">
-            <img class="jeu_image_detail" src="../images/games/<?php echo $jeu['couverture'] ?>" alt="image de <?php echo $jeu['titre'] ?>" style="width: 8rem; height: 13rem;">
+            <img class="jeu_image_detail" src="../images/games/<?php echo $jeu['couverture'] ?>" alt="image de <?php echo $jeu['titre'] ?>" style="width: 9rem; height: 14rem;">
         </div>
 
         <div id="detail-container" class="d-flex flex-column col-lg-8">
@@ -25,6 +25,8 @@ function render_avis_presse($jeu)
                     </div>
                 </div>
             </div>
+            <br>
+            <a href="../detail.php?rendu_jeu=<?php echo $jeu['id'] ?>" class="button-detail">Voir détail</a>
         </div>
     </div>
 
@@ -39,9 +41,9 @@ function render_avis_presse($jeu)
 function render_avis_utilisateurs($jeu)
 {
 ?>
-    <div class="d-flex flex-row flex-wrap card m-2">
+    <div class="d-flex flex-row flex-wrap card m-2 grossir">
         <div class="col-lg-4">
-            <img class="jeu_image_detail" src="../images/games/<?php echo $jeu['couverture'] ?>" alt="image de <?php echo $jeu['titre'] ?>" style="width: 8rem; height: 13rem;">
+            <img class="jeu_image_detail" src="../images/games/<?php echo $jeu['couverture'] ?>" alt="image de <?php echo $jeu['titre'] ?>" style="width: 9rem; height: 14rem;">
         </div>
 
         <div id="detail-container" class="d-flex flex-column col-lg-8">
@@ -61,6 +63,8 @@ function render_avis_utilisateurs($jeu)
                     </div>
                 </div>
             </div>
+            <br>
+            <a href="../detail.php?rendu_jeu=<?php echo $jeu['id'] ?>" class="button-detail">Voir détail</a>
         </div>
     </div>
 
